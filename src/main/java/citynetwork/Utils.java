@@ -13,37 +13,24 @@ public class Utils {
         List<Character> cityCodeChar = new ArrayList<>();
         List<Integer> cityCodeIdx = new ArrayList<>();
 
+        if(_cityCode.contains(" ")){return false;}
         for(int i=0;i<_cityName.length();i++){
             cityChar.add(_cityName.charAt(i));
         }
-
         for(int i=0;i<_cityCode.length();i++){
-            if(!cityChar.contains(_cityCode.charAt(i))) {
-                valid = false;
-            }else{
-                cityCodeChar.add(_cityCode.charAt(i));
-                codeIdx= cityChar.indexOf(_cityCode.charAt(i));
-                cityChar.remove(codeIdx);
-                cityCodeIdx.add(codeIdx);
-            }
-
+            cityCodeChar.add(_cityCode.charAt(i));
         }
-        if(valid){
-            valid = cityCodeIdx.size()==3;
-            for(Character i:cityCodeChar){
-
-                if(cityChar.contains(i)&&valid){
-                    valid = false;
-                }
-            }
-            if(valid){
-                if(cityCodeIdx.get(0)<cityCodeIdx.get(1)&&cityCodeIdx.get(1)<cityCodeIdx.get(2)){
-                    valid = false;
+        for(char c:cityChar){
+            if(codeIdx<_cityCode.length()-1){
+                if(c==cityCodeChar.get(codeIdx)){
+                    codeIdx++;
                 }
             }
         }
-
-        return valid;
+        if(codeIdx!=2){
+            return false;
+        }
+        return true;
     }
 
 }
